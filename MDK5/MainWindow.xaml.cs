@@ -24,39 +24,35 @@ namespace MDK5
 
     public partial class MainWindow : Window
     {
+        Triangle triangle = new Triangle();
+
         public MainWindow()
         {
             InitializeComponent();
-
         }
-        Triangle triangle = new Triangle();
+
         private void Расчёт(object sender, RoutedEventArgs e)
         {
-            bool f1 = Int32.TryParse(сторонаА.Text, out int a);// проверка на числовой тип данных
-            bool f2 = Int32.TryParse(сторонаВ.Text, out int b);
-            bool f3 = Int32.TryParse(сторонаС.Text, out int c);
-            if (f1 && f2 && f3 && a > 0 && b > 0 && c > 0)
+            if (int.TryParse(сторонаА.Text, out int a) && int.TryParse(сторонаВ.Text, out int b) && int.TryParse(сторонаС.Text, out int c) && a > 0 && b > 0 && c > 0)
             {            
                 triangle.SetParams(a, b, c); // Установка параметров треугольника
-                double perimeter = triangle.CalcPerimeter(); // Вычисление периметра
-                периметр.Text = Convert.ToString(perimeter);
+                периметр.Text = triangle.CalcPerimeter().ToString();
             }
             else MessageBox.Show("Ошибка, стороны треугольника должны быть положительными числами");
         }
 
         private void Увеличение(object sender, RoutedEventArgs e)
         {
-            bool f1 = Int32.TryParse(сторонаА.Text, out int a);
-            bool f2 = Int32.TryParse(сторонаВ.Text, out int b);
-            bool f3 = Int32.TryParse(сторонаС.Text, out int c);
             
-            if (f1 && f2 && f3 && a > 0 && b > 0 && c > 0 )
+            if (int.TryParse(сторонаА.Text, out int a) && int.TryParse(сторонаВ.Text, out int b) && int.TryParse(сторонаС.Text, out int c) && a > 0 && b > 0 && c > 0)
             {             
                     triangle.SetParams(a, b, c, true); // Увеличение размеров треугольника
-
-                    удвА.Text = Convert.ToString(a);
-                    удвВ.Text = Convert.ToString(b);
-                    удвС.Text = Convert.ToString(c);                
+                    // Ты выводила текст с полей ввода
+                    // А не из triangle
+                    // Если будет ошибку писать, допиши каждому triangle ToString
+                    удвА.Text = triangle.A;
+                    удвВ.Text = triangle.B;
+                    удвС.Text = triangle.C;              
             }
             else MessageBox.Show("Ошибка, должны быть заполнены текстбоксы со сторонами");
 
